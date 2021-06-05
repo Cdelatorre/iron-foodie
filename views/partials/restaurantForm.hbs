@@ -1,0 +1,49 @@
+<form action="{{action}}" method="POST">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input name="name" type="text" class="form-control {{#if errors.name}}is-invalid{{/if}}" id="name" placeholder="Enter name"
+      value="{{ restaurant.name }}">
+    {{#if errors.name}}
+      <div class="invalid-feedback">
+        {{errors.name.message}}
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input name="address" type="text" class="form-control {{#if errors.address}}is-invalid{{/if}}" id="address" placeholder="Enter address"
+      value="{{ restaurant.address }}">
+    {{#if errors.address}}
+      <div class="invalid-feedback">
+        {{errors.address.message}}
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label for="image">Image</label>
+    <input name="image" type="text" class="form-control" id="image" placeholder="Enter image"
+      value="{{ restaurant.image }}">
+  </div>
+
+  <div class="form-group">
+    <label for="text">Description</label>
+    <textarea name="description" type="text" class="form-control" id="text"
+      placeholder="Enter restaurant description" rows="10">{{ restaurant.description }}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="capacity">Capacity</label>
+    <input name="capacity" type="number" class="form-control" id="capacity" placeholder="Enter capacity"
+      value="{{ restaurant.capacity }}">
+  </div>
+
+  <div class="form-group">
+    <label for="maxProductCost">Max Product Cost</label>
+    <input name="maxProductCost" type="number" class="form-control" id="maxProductCost" placeholder="Enter maxProductCost"
+      value="{{ restaurant.maxProductCost }}">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>
