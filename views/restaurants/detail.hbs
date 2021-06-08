@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-3">
+    <img src="{{restaurant.image}}" class="w-100 rounded border"/>
+  </div>
+
+  <div class="col-9">
+    <h3>{{restaurant.name}}</h3>
+    <small>{{restaurant.address}}</small>
+    <p>{{restaurant.description}}</p>
+  </div>
+</div>
+
+<h2>Dishes</h2>
+
+<hr/>
+
+<div class="row">
+  {{#each restaurant.dishes as |dish|}}
+  <div class="col-3">
+    <div class="card my-3">
+      <img src="{{dish.image}}" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">{{dish.name}}</h5>
+        <p class="card-text">{{prettyCost dish.cost}}</p>
+        {{#with dish}}
+        {{#if vegFriendly }}
+        <span class="badge bg-success">VegFriendly</span>
+        {{else}}
+        <span class="badge bg-danger">NO VegFriendly</span>
+        {{/if}}
+        {{/with}}
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>

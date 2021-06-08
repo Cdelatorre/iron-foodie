@@ -14,7 +14,18 @@ module.exports.list = (req, res, next) => {
     });
 };
 
-module.exports.detail = (req, res, next) => {};
+module.exports.detail = (req, res, next) => {
+  Restaurant.findById(req.params.id)
+    .populate('dishes')
+    .then((restaurant) => {
+      if (restaurant) {
+        res.render('restaurants/detail', { restaurant });
+      } else {
+        res.redirect('/restaurants');
+      }
+    })
+    .catch(next);
+};
 
 module.exports.create = (req, res, next) => {
   res.render('restaurants/new');

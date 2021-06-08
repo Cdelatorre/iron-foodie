@@ -1,0 +1,27 @@
+<h1>All Dishes</h1>
+
+<div class="row">
+  {{#each dishes as |dish|}}
+  <div class="col-3">
+    <div class="card my-3">
+      <img src="{{dish.image}}" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">{{dish.name}}</h5>
+        <p class="card-text">{{prettyCost dish.cost}}</p>
+        <p class="card-text">
+          <a href="/restaurants/{{dish.restaurant.id}}">
+            {{dish.restaurant.name}}
+          </a>
+        </p>
+        {{#with dish}}
+          {{#if vegFriendly }}
+            <span class="badge bg-success">VegFriendly</span>
+          {{else}}
+            <span class="badge bg-danger">NO VegFriendly</span>
+          {{/if}}
+        {{/with}}
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>

@@ -36,6 +36,13 @@ const schema = new Schema(
   { timestamps: true },
 );
 
+schema.virtual('dishes', {
+  ref: 'Dish',
+  localField: '_id',
+  foreignField: 'restaurant',
+  justOne: false,
+});
+
 const Restaurant = mongoose.model('Restaurant', schema);
 
 module.exports = Restaurant;
