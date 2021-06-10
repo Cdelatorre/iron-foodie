@@ -10,3 +10,4 @@ hbs.registerHelper('json', (data) => {
 hbs.registerHelper('prettyCost', (cost) => {
   return cost.toFixed(2) + '€';
 });
+

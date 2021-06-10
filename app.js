@@ -34,6 +34,7 @@ app.set('view engine', 'hbs');
 /**
  * Configure routes
  */
+
 const router = require('./config/routes.config');
 app.use('/', router);
 
