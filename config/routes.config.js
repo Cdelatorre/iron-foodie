@@ -15,6 +15,10 @@ router.get('/dishes', dishes.list);
 router.get('/register', auth.register);
 router.post('/register', auth.doRegister);
 
+router.get('/login', auth.login);
+router.post('/login', auth.doLogin);
+router.get('/logout', auth.logout);
+
 
 router.get('/', (req, res) => {
   res.redirect('/restaurants');
