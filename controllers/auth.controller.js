@@ -6,16 +6,30 @@ module.exports.register = (req, res, next) => {
   res.render('auth/register');
 }
 
+
 module.exports.doRegister = (req, res, next) => {
-  const user = { name , email, password } = req.body; /// { name: 'Carlos', email: 'carlos@example.org' }
-  User.create(user)
-    .then(user => res.redirect('/restaurants'))
+
+  function renderWithErrors(errors) {
+    res.render('auth/register', {
+      user: req.body,
+      errors: errors
+    });
+  }
+
+
+  User.findOne({ email: req.body.email })
+    .then(user => {
+      if (user) {
+        renderWithErrors({ email: 'email already registered' })
+      } else {
+        user = { name, email, password } = req.body; // { name: 'Carlos', email: 'carlos@example.org', password: '12345678' }
+        return User.create(user)
+          .then(user => res.redirect('/'))
+      }
+    })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.render('auth/register', {
-          user: user,
-          errors: error.errors
-        });
+        renderWithErrors(error.errors);
       } else {
         next(error);
       }
