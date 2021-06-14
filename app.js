@@ -5,14 +5,17 @@ const express = require('express');
 const logger = require('morgan');
 const path = require('path');
 
+/** Configurations */
 require('./config/hbs.config');
 require('./config/db.config');
 
 const app = express();
 
-/**
- * Middlewares
- */
+/** View engine setup */
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+
+/** Middlewares */
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
@@ -29,19 +32,13 @@ app.use((req, res, next) => {
   next();
 });
 
-/**
- * View setup
- */
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 
-/**
- * Configure routes
- */
-
+/** Configure routes */
 const router = require('./config/routes.config');
 app.use('/', router);
 
+
+/** Error Handling */
 app.use((req, res, next) => {
   next(createError(404, 'Page not found'));
 });
@@ -50,10 +47,11 @@ app.use((error, req, res, next) => {
   console.error(error);
   const status = error.status || 500;
 
-  res.status(status).render('error', {
-    message: error.message,
-    error: req.app.get('env') === 'development' ? error : {},
-  });
+  res.status(status)
+    .render('error', {
+      message: error.message,
+      error: req.app.get('env') === 'development' ? error : {},
+    });
 });
 
 const port = Number(process.env.PORT || 3000);
