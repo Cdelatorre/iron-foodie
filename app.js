@@ -17,6 +17,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 
+const { sessionConfig, loadUser } = require('./config/session.config');
+app.use(sessionConfig);
+app.use(loadUser);
+
 app.use((req, res, next) => {
   // la variable path se podrá usar desde cualquier vista de hbs (/register, /posts)
   res.locals.path = req.path;
@@ -34,6 +38,7 @@ app.set('view engine', 'hbs');
 /**
  * Configure routes
  */
+
 const router = require('./config/routes.config');
 app.use('/', router);
 

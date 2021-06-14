@@ -10,3 +10,8 @@ hbs.registerHelper('json', (data) => {
 hbs.registerHelper('prettyCost', (cost) => {
   return cost.toFixed(2) + '€';
 });
+
+hbs.registerHelper('active', (options) => {
+  const { match, path } = options.hash;
+  return path === match ? 'active' : '';
+})
