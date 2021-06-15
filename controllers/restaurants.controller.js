@@ -40,6 +40,7 @@ module.exports.doCreate = (req, res, next) => {
     categories: req.body.categories,
     capacity: req.body.capacity,
     maxProductCost: req.body.maxProductCost,
+    owner: req.user.id
   });
 
   restaurant
