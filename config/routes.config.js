@@ -2,13 +2,14 @@ const express = require('express');
 const restaurants = require('../controllers/restaurants.controller');
 const dishes = require('../controllers/dishes.controller');
 const auth = require('../controllers/auth.controller');
+const secure = require('../middlewares/secure.mid');
 
 const router = express.Router();
 
 router.get('/restaurants', restaurants.list);
-router.get('/restaurants/new', restaurants.create);
+router.get('/restaurants/new', secure.isAuthenticated, restaurants.create);
 router.get('/restaurants/:id', restaurants.detail);
-router.post('/restaurants', restaurants.doCreate);
+router.post('/restaurants', secure.isAuthenticated, restaurants.doCreate);
 
 router.get('/dishes', dishes.list);
 

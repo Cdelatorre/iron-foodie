@@ -24,7 +24,7 @@ module.exports.loadUser = (req, res, next) => {
   const userId = req.session.userId;
   if (!userId) {
     next();
-  }  else {
+  } else {
     User.findById(userId)
       .then(user => {
         req.user = user;
@@ -33,5 +33,4 @@ module.exports.loadUser = (req, res, next) => {
       })
       .catch(error => next(error))
   }
-  
 }
