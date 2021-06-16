@@ -1,13 +1,22 @@
-<form action="/restaurants" method="GET" class="mb-3">
-  <input name="search" type="text" class="form-control" placeholder="Search">
-</form>
+
+<div class="row mt-3">
+  <h2 class="c-dark-gray font-weight-semi mb-4">Listado de restaurantes</h2>
+  <form action="/restaurants" method="GET" class="flex-grow-1 mb-3">
+    <div id="search-wrapper" class="d-flex flex-row align-items-center">
+      <i class="fa fa-search"></i>
+      <input name="search" type="text" class="form-control border-0" placeholder="Search">
+    </div>
+  </form>
+</div>
 
 <div class="row">
 {{#each restaurants as |restaurant|}}
-  <div class="col-4 d-flex">
+  <div class="col-md-4 col-sm-6 d-flex">
     <div class="card my-3 position-relative">
-      <img src="{{restaurant.image}}" class="card-img-top">
-      
+      <div class="card-img-top-wrapper">
+        <img src="{{restaurant.image}}" class="card-img-top">
+      </div>
+
       {{#restaurantIsOwnerBy user=../currentUser restaurant=restaurant }}
         <div class="position-absolute top-0 end-0 p-3">
           <div class="d-flow bg-light rounded-pill">
@@ -16,14 +25,19 @@
           </div>
         </div>
       {{/restaurantIsOwnerBy}}
-      
+
       <div class="card-body d-flex flex-column justify-content-between">
         <div>
-          <h5 class="card-title">{{restaurant.name}}</h5>
-          <p class="card-text">{{restaurant.description}}</p>
+          <h5 class="card-title c-dark-gray">{{restaurant.name}}</h5>
+          <p class="card-address"><span class="pe-1"><i class="fa fa-map-pin"></i></span>{{restaurant.address}}</p>
+          <p class="card-description">{{restaurant.description}}</p>
         </div>
-        <div class="d-grid mt-2">
-          <a href="/restaurants/{{restaurant.id}}" class="btn btn-sm btn-primary">Detail</a>
+        <div class="d-grid mt-1">
+          <a
+            href="/restaurants/{{restaurant.id}}"
+            class="btn btn-sm btn-primary border-0 bg-light-green py-2">
+              Detail
+          </a>
         </div>
       </div>
     </div>
