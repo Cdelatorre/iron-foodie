@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <div class="col col-sm-8 col-md-6 col-lg-4">
     <div class="intro-register-img mb-4">
-      <img src="img/intro.png" alt="intro" >
+      <img src="img/intro.png" class="w-100" alt="intro" >
     </div>
     <form action="/register" method="post">
 
@@ -11,7 +11,7 @@
       </div>
 
       <div class="input-group mb-2">
-        <input type="text" name="email" class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.email}}is-invalid{{/if}}" placeholder="user@example.org" aria-label="User email" value="{{ user.email }}">
+        <input type="text" name="email" class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.email}}is-invalid{{/if}}" placeholder="Emial: user@example.org" aria-label="User email" value="{{ user.email }}">
         {{#if errors.email}}<div class="invalid-feedback">{{ errors.email }}</div>{{/if}}
       </div>
 

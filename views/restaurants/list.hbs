@@ -18,10 +18,10 @@
       </div>
 
       {{#restaurantIsOwnerBy user=../currentUser restaurant=restaurant }}
-        <div class="position-absolute top-0 end-0 p-3">
-          <div class="d-flow bg-light rounded-pill">
-            <a href="/restaurants/{{restaurant.id}}/edit" class="btn btn-link text-secondary"><i class="fa fa-edit"></i></a>
-            <a href="/restaurants/{{restaurant.id}}/delete" class="btn btn-link text-danger"><i class="fa fa-times"></i></a>
+        <div class="position-absolute actions-card-button p-3">
+          <div class="d-flow rounded-pill d-flex w-100 justify-con">
+            <a href="/restaurants/{{restaurant.id}}/edit" class="border border-secondary btn bg-white rounded me-1 btn-link text-secondary"><i class="fa fa-edit"></i></a>
+            <a href="/restaurants/{{restaurant.id}}/delete" class="border border-danger btn bg-white rounded btn-link text-danger"><i class="fa fa-times"></i></a>
           </div>
         </div>
       {{/restaurantIsOwnerBy}}
