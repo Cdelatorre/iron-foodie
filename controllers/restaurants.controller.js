@@ -5,7 +5,7 @@ const Restaurant = require('../models/restaurant.model');
 module.exports.list = (req, res, next) => {
   Restaurant.find()
     .sort({ createdAt: 'desc' })
-    .limit(10)
+    .limit(9)
     .then((restaurants) => {
       res.render('restaurants/list', { restaurants });
     })

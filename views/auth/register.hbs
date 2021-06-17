@@ -1,28 +1,28 @@
 <div class="row justify-content-center">
-  <div class="col col-sm-3">
+  <div class="col col-sm-8 col-md-6 col-lg-4">
+    <div class="intro-register-img mb-4">
+      <img src="img/intro.png" class="w-100" alt="intro" >
+    </div>
     <form action="/register" method="post">
 
-      <div class="input-group mb-1">
-        <span class="input-group-text"><i class="fa fa-user fa-fw"></i></span>
-        <input type="text" name="name" class="form-control {{#if errors.name}}is-invalid{{/if}}" placeholder="Name" aria-label="User name" value="{{ user.name }}">
+      <div class="input-group mb-2">
+        <input type="text" name="name" class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.name}}is-invalid{{/if}}" placeholder="Name" aria-label="User name" value="{{ user.name }}">
         {{#if errors.name}}<div class="invalid-feedback">{{ errors.name }}</div>{{/if}}
       </div>
 
-      <div class="input-group mb-1">
-        <span class="input-group-text"><i class="fa fa-envelope fa-fw"></i></span>
-        <input type="text" name="email" class="form-control {{#if errors.email}}is-invalid{{/if}}" placeholder="user@example.org" aria-label="User email" value="{{ user.email }}">
+      <div class="input-group mb-2">
+        <input type="text" name="email" class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.email}}is-invalid{{/if}}" placeholder="Emial: user@example.org" aria-label="User email" value="{{ user.email }}">
         {{#if errors.email}}<div class="invalid-feedback">{{ errors.email }}</div>{{/if}}
       </div>
 
-      <div class="input-group mb-2">
-        <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
-        <input type="password" name="password" class="form-control {{#if errors.password}}is-invalid{{/if}}" placeholder="Password" aria-label="User password">
-        <button class="btn btn-outline-secondary password-toggle" type="button"><i class="fa fa-eye-slash fa-fw"></i></button>
+      <div class="input-group mb-3">
+        <input type="password" name="password" class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.password}}is-invalid{{/if}}" placeholder="Password" aria-label="User password">
+        <button class="btn btn-outline-secondary password-toggle border-0 bg-white" type="button"><i class="fa fa-eye-slash fa-fw"></i></button>
         {{#if errors.password}}<div class="invalid-feedback">{{ errors.password }}</div>{{/if}}
       </div>
 
       <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary bg-light-green border-0">Register</button>
       </div>
     </form>
   </div>
