@@ -3,7 +3,7 @@
     <div class="intro-register-img mb-4">
       <img src="img/intro.png" class="w-100" alt="intro" >
     </div>
-    <form action="/register" method="post">
+    <form action="/register" method="post" enctype="multipart/form-data">
 
       <div class="input-group mb-2">
         <input type="text" name="name" class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.name}}is-invalid{{/if}}" placeholder="Name" aria-label="User name" value="{{ user.name }}">
@@ -19,6 +19,12 @@
         <input type="password" name="password" class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.password}}is-invalid{{/if}}" placeholder="Password" aria-label="User password">
         <button class="btn btn-outline-secondary password-toggle border-0 bg-white" type="button"><i class="fa fa-eye-slash fa-fw"></i></button>
         {{#if errors.password}}<div class="invalid-feedback">{{ errors.password }}</div>{{/if}}
+      </div>
+
+      <div class="input-group mb-3">
+        <input type="file" name="avatar"
+          class="custom-form-control form-control border-0 py-2 ps-4 {{#if errors.password}}is-invalid{{/if}}"
+          >
       </div>
 
       <div class="d-grid gap-2">

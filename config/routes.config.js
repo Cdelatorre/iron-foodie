@@ -3,7 +3,7 @@ const restaurants = require('../controllers/restaurants.controller');
 const dishes = require('../controllers/dishes.controller');
 const auth = require('../controllers/auth.controller');
 const secure = require('../middlewares/secure.mid');
-
+const upload = require('../config/multer.config');
 const router = express.Router();
 
 router.get('/restaurants', restaurants.list);
@@ -14,12 +14,11 @@ router.post('/restaurants', secure.isAuthenticated, restaurants.doCreate);
 router.get('/dishes', dishes.list);
 
 router.get('/register', auth.register);
-router.post('/register', auth.doRegister);
+router.post('/register', upload.single('avatar'), auth.doRegister);
 
 router.get('/login', auth.login);
 router.post('/login', auth.doLogin);
 router.get('/logout', auth.logout);
-
 
 router.get('/', (req, res) => {
   res.redirect('/restaurants');
