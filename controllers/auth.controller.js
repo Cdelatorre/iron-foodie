@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('../models/user.model');
+const mailer = require('../config/mailer.config');
+const passport = require('passport');
 
 module.exports.register = (req, res, next) => {
   res.render('auth/register');
@@ -24,7 +26,10 @@ module.exports.doRegister = (req, res, next) => {
           user.avatar = req.file.path;
         }
 
-        return User.create(user).then((user) => res.redirect('/'));
+        return User.create(user).then((user) => {
+          mailer.sendValidationEmail(user);
+          res.redirect('/');
+        });
       }
     })
     .catch((error) => {
@@ -41,34 +46,56 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.doLogin = (req, res, next) => {
-  function renderWithLoginError() {
-    res.render('auth/login', {
-      user: req.body,
-      errors: {
-        email: 'Invalid email or password',
-      },
-    });
-  }
+  const passportController = passport.authenticate('local-auth', (error, user, validations) => {
+    if (error) {
+      next(error);
+    } else if (!user) {
+      res.status(400).render('users/login', { user: req.body, errors: validations });
+    } else {
+      req.login(user, (error) => {
+        if (error) next(error);
+        else res.redirect('/');
+      });
+    }
+  });
 
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (!user) {
-        renderWithLoginError();
-      } else {
-        return user.checkPassword(req.body.password).then((match) => {
-          if (!match) {
-            renderWithLoginError();
-          } else {
-            req.session.userId = user.id;
-            res.redirect('/');
-          }
-        });
-      }
-    })
-    .catch((error) => next(error));
+  passportController(req, res, next);
+};
+
+module.exports.loginWithGoogle = (req, res, next) => {
+  const passportController = passport.authenticate('google-auth', {
+    scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
+  });
+
+  passportController(req, res, next);
+};
+
+module.exports.doLoginWithGoogle = (req, res, next) => {
+  const passportController = passport.authenticate('google-auth', (error, user, validations) => {
+    if (error) {
+      next(error);
+    } else if (!user) {
+      res.status(400).render('users/login', { user: req.body, errors: validations });
+    } else {
+      req.login(user, (error) => {
+        if (error) next(error);
+        else res.redirect('/');
+      });
+    }
+  });
+
+  passportController(req, res, next);
 };
 
 module.exports.logout = (req, res, next) => {
   req.session.destroy();
   res.redirect('/login');
+};
+
+module.exports.activate = (req, res, next) => {
+  User.findByIdAndUpdate(req.params.id, { active: true })
+    .then(() => {
+      res.redirect('/login');
+    })
+    .catch(next);
 };

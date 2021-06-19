@@ -1,4 +1,8 @@
-<form action="{{action}}" method="POST">
+{{#if restaurant.isNew }}
+  <form action="/restaurants" method="POST">
+{{else}}
+  <form action="/restaurants/{{restaurant.id}}/edit" method="POST">
+{{/if}}
   <div class="form-group">
     <label for="name">Name</label>
     <input name="name" type="text" class="form-control {{#if errors.name}}is-invalid{{/if}}" id="name" placeholder="Enter name"

@@ -3,6 +3,12 @@ body {
   background-color: #f5f5f5;
 }
 
+nav img {
+  width: 40px;
+  border-radius: 100%;
+  margin-left: 20px;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus textarea:-webkit-autofill,

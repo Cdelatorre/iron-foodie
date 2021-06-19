@@ -22,6 +22,15 @@ const userSchema = new Schema({
   avatar: {
     type: String,
   },
+  active: {
+    type: Boolean,
+    default: false,
+  },
+  social: {
+    google: {
+      type: String,
+    },
+  },
   password: {
     type: String,
     required: 'password is required',

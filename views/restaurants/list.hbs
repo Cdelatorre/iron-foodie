@@ -21,7 +21,10 @@
         <div class="position-absolute actions-card-button p-3">
           <div class="d-flow rounded-pill d-flex w-100 justify-con">
             <a href="/restaurants/{{restaurant.id}}/edit" class="border border-secondary btn bg-white rounded me-1 btn-link text-secondary"><i class="fa fa-edit"></i></a>
-            <a href="/restaurants/{{restaurant.id}}/delete" class="border border-danger btn bg-white rounded btn-link text-danger"><i class="fa fa-times"></i></a>
+            <form action="/restaurants/{{restaurant.id}}/delete" method="post">
+              <button type="submit"
+                class="border border-danger btn bg-white rounded btn-link text-danger"><i class="fa fa-times"></i></button>
+            </form>
           </div>
         </div>
       {{/restaurantIsOwnerBy}}
@@ -31,6 +34,7 @@
           <h5 class="card-title c-dark-gray">{{restaurant.name}}</h5>
           <p class="card-address"><span class="pe-1"><i class="fa fa-map-pin"></i></span>{{restaurant.address}}</p>
           <p class="card-description">{{restaurant.description}}</p>
+          <p class="card-description">{{restaurant.owner.email}}</p>
         </div>
         <div class="d-grid mt-1">
           <a
@@ -43,4 +47,6 @@
     </div>
   </div>
 {{/each}}
+</div>
+
 </div>

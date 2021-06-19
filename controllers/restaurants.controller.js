@@ -4,6 +4,7 @@ const Restaurant = require('../models/restaurant.model');
 
 module.exports.list = (req, res, next) => {
   Restaurant.find()
+    .populate('owner')
     .sort({ createdAt: 'desc' })
     .limit(9)
     .then((restaurants) => {
@@ -40,7 +41,7 @@ module.exports.doCreate = (req, res, next) => {
     categories: req.body.categories,
     capacity: req.body.capacity,
     maxProductCost: req.body.maxProductCost,
-    owner: req.user.id
+    owner: req.user.id,
   });
 
   restaurant
@@ -60,8 +61,30 @@ module.exports.doCreate = (req, res, next) => {
     });
 };
 
-module.exports.edit = (req, res, next) => {};
+module.exports.edit = (req, res, next) => {
+  res.render('./restaurants/edit', { restaurant: req.restaurant });
+};
 
-module.exports.doEdit = (req, res, next) => {};
+module.exports.doEdit = (req, res, next) => {
+  Restaurant.findByIdAndUpdate(req.params.id, {
+    name: req.body.name,
+    address: req.body.address,
+    image: req.body.image,
+    description: req.body.description,
+    categories: req.body.categories,
+    capacity: req.body.capacity,
+    maxProductCost: req.body.maxProductCost,
+  })
+    .then((restaurant) => {
+      res.redirect(`/restaurants/${restaurant.id}`);
+    })
+    .catch(next);
+};
 
-module.exports.delete = (req, res, next) => {};
+module.exports.delete = (req, res, next) => {
+  Restaurant.findByIdAndDelete(req.params.id)
+    .then(() => {
+      res.redirect('/restaurants');
+    })
+    .catch(next);
+};
