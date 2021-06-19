@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const faker = require('faker');
 const mongoose = require('mongoose');
 const restaurants = require('../data/restaurants.json');
