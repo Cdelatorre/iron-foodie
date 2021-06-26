@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .forEach(button => button.addEventListener('click', onClickPasswordToggle));
 
   $("select").imagepicker({ show_label: true });
+  new FroalaEditor('.html-editor');
 })
 
 function onClickPasswordToggle(event) {
