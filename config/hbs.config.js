@@ -39,3 +39,8 @@ hbs.registerHelper('categoryLabel', function(options) {
   const { id, selector } = options.hash;
   return categories[id][selector];
 });
+
+hbs.registerHelper('removeHTML', (options) => {
+  const { text } = options.hash;
+  return text.replace(/(<([^>]+)>)/gi, '');
+})

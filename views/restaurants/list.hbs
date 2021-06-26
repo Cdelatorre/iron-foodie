@@ -33,7 +33,7 @@
         <div>
           <h5 class="card-title c-dark-gray">{{restaurant.name}}</h5>
           <p class="card-address"><span class="pe-1"><i class="fa fa-map-pin"></i></span>{{restaurant.address}}</p>
-          <p class="card-description">{{restaurant.description}}</p>
+          <p class="card-description">{{removeHTML text=restaurant.description}}</p>
           <p class="card-description">{{restaurant.owner.email}}</p>
         </div>
         <div class="d-grid mt-1">
