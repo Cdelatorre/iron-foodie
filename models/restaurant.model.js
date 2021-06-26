@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const categories = require('../data/categories.json');
 
 const schema = new Schema(
   {
@@ -21,7 +22,10 @@ const schema = new Schema(
       minlength: 10,
     },
     categories: {
-      type: [String],
+      type: [{
+        type: String,
+        enum: Object.keys(categories)
+      }],
       default: [],
     },
     capacity: {

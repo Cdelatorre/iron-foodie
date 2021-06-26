@@ -1,0 +1,14 @@
+{
+  "mediterranean": {
+    "text": "🏝  Mediterranean",
+    "image": "/img/categories/mediterranean.jpg"
+  },
+  "indian": {
+    "text": "🌶  Indian",
+    "image": "/img/categories/indian.jpg"
+  },
+  "mexican": {
+    "text": "🌮  Mexican",
+    "image": "/img/categories/mexican.jpg"
+  }
+}

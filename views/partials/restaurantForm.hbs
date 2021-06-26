@@ -1,9 +1,10 @@
-{{#if restaurant.isNew }}
-  <form action="/restaurants" method="POST">
-{{else}}
+{{#if edit }}
   <form action="/restaurants/{{restaurant.id}}/edit" method="POST">
+    <input type="hidden" name="id" value="{{restaurant.id}}"/>
+{{else}}
+  <form action="/restaurants" method="POST">
 {{/if}}
-  <div class="form-group">
+  <div class="form-group mb-1">
     <label for="name">Name</label>
     <input name="name" type="text" class="form-control {{#if errors.name}}is-invalid{{/if}}" id="name" placeholder="Enter name"
       value="{{ restaurant.name }}">
@@ -14,7 +15,7 @@
     {{/if}}
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-1">
     <label for="address">Address</label>
     <input name="address" type="text" class="form-control {{#if errors.address}}is-invalid{{/if}}" id="address" placeholder="Enter address"
       value="{{ restaurant.address }}">
@@ -25,7 +26,7 @@
     {{/if}}
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-1">
     <label for="image">Image</label>
     <input name="image" type="text" class="form-control {{#if errors.image}}is-invalid{{/if}}" id="image" placeholder="Enter image"
       value="{{ restaurant.image }}">
@@ -36,13 +37,13 @@
     {{/if}}
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-1">
     <label for="text">Description</label>
     <textarea name="description" type="text" class="form-control {{#if errors.description}}is-invalid{{/if}}" id="text"
       placeholder="Enter restaurant description" rows="10">{{ restaurant.description }}</textarea>
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-1">
     <label for="capacity">Capacity</label>
     <input name="capacity" type="number" class="form-control {{#if errors.capacity}}is-invalid{{/if}}" id="capacity" placeholder="Enter capacity"
       value="{{ restaurant.capacity }}">
@@ -53,7 +54,7 @@
     {{/if}}
   </div>
 
-  <div class="form-group">
+  <div class="form-group mb-1">
     <label for="maxProductCost">Max Product Cost</label>
     <input name="maxProductCost" type="number" class="form-control {{#if errors.maxProductCost}}is-invalid{{/if}}" id="maxProductCost" placeholder="Enter maxProductCost"
       value="{{ restaurant.maxProductCost }}">
@@ -63,6 +64,19 @@
       </div>
     {{/if}}
   </div>
+
+  <div class="form-group mb-1">
+    <label for="categories">Categories</label>
+    <select class="form-select" name="categories" show-labels multiple aria-label="Categories" id="categories">
+      <option {{#unless restaurant.categories }}selected{{/unless}}>Select category</option>
+      {{#each categories as |category|}}
+      <option value="{{category}}" {{#restaurantHasCategory category=category restaurant=../restaurant}} selected
+        {{/restaurantHasCategory}} data-img-src="{{categoryLabel id=category selector='image' }}" >{{categoryLabel id=category selector='text' }}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  
 
   <button type="submit" class="btn btn-primary">Send</button>
 </form>

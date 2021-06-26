@@ -144,3 +144,14 @@ a.bg-dark-blue:hover {
   border: 1px solid rgb(0 0 0 / 5%) !important;
   border-radius: 0.45rem !important;
 }
+
+
+.image_picker_selector .thumbnail p {
+  text-align: center;
+  margin: 4px 0;
+}
+
+ul.thumbnails.image_picker_selector li .thumbnail.selected {
+  background: #2c9ca2;
+  font-weight: 600;
+}

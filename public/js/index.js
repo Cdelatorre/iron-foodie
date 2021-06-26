@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.password-toggle')
-    .forEach(button => button.addEventListener('click', onClickPasswordToggle))
+    .forEach(button => button.addEventListener('click', onClickPasswordToggle));
+
+  $("select").imagepicker({ show_label: true });
 })
 
 function onClickPasswordToggle(event) {
