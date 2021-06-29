@@ -73,18 +73,14 @@ module.exports.edit = (req, res, next) => {
 };
 
 module.exports.doEdit = (req, res, next) => {
-  Restaurant.findByIdAndUpdate(req.params.id, {
-    name: req.body.name,
-    address: req.body.address,
-    image: req.body.image,
-    description: req.body.description,
-    categories: req.body.categories,
-    capacity: req.body.capacity,
-    maxProductCost: req.body.maxProductCost,
-  }, { runValidators: true, new: true })
+
+  delete req.body.owner;
+
+  Restaurant.findByIdAndUpdate(req.params.id, req.body, { runValidators: true, new: true })
     .then((restaurant) => res.redirect(`/restaurants/${restaurant.id}`))
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
+        req.body.id = req.params.id;
         res.status(400).render('restaurants/edit', {
           errors: error.errors,
           restaurant: req.body,
