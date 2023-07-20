@@ -17,7 +17,7 @@ router.post('/restaurants/:id/delete', secure.isAuthenticated, secure.restaurant
 router.get('/dishes', dishes.list);
 
 router.get('/register', secure.isNotAuthenticated, auth.register);
-router.post('/register', secure.isNotAuthenticated, upload.single('avatar'), auth.doRegister);
+router.post('/register', secure.isNotAuthenticated, upload.array('avatar'), auth.doRegister);
 
 router.get('/login', secure.isNotAuthenticated, auth.login);
 router.post('/login', secure.isNotAuthenticated, auth.doLogin);

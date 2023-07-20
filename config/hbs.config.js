@@ -15,7 +15,7 @@ hbs.registerHelper('prettyCost', (cost) => {
 hbs.registerHelper('active', (options) => {
   const { match, path } = options.hash;
   return path === match ? 'active' : '';
-})
+});
 
 hbs.registerHelper('restaurantIsOwnerBy', function (options) {
   const { user, restaurant } = options.hash;
@@ -33,9 +33,9 @@ hbs.registerHelper('restaurantHasCategory', function (options) {
   } else {
     return options.inverse(this);
   }
-})
+});
 
-hbs.registerHelper('categoryLabel', function(options) {
+hbs.registerHelper('categoryLabel', function (options) {
   const { id, selector } = options.hash;
   return categories[id][selector];
 });
@@ -43,4 +43,4 @@ hbs.registerHelper('categoryLabel', function(options) {
 hbs.registerHelper('removeHTML', (options) => {
   const { text } = options.hash;
   return text.replace(/(<([^>]+)>)/gi, '');
-})
+});
