@@ -38,4 +38,34 @@
       </div>
     </div>
   {{/each}}
+    <div id='map'></div>
 </div>
+
+
+ <script>
+  const createMapWithPosition = (position) => {
+    console.log('entro', position)
+
+      L.mapbox.accessToken = 'pk.eyJ1IjoiY2RlbGF0b3JyZSIsImEiOiJja3Y5bHJ6ZzcweG0yMnZtZzI4eXJna2UxIn0.m-OWQWPhRrb5ZNRz0M9AqQ';
+
+      var map = L.mapbox.map('map')
+          .setView([position.coords.latitude, position.coords.longitude], 22)
+          .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-v9'));
+
+      map.on('click', (e) => {
+        input.value = e.latlng.lat + ',' + e.latlng.lng
+        console.log(e)
+    });
+  }
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(createMapWithPosition);
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+  getLocation()
+
+  </script>

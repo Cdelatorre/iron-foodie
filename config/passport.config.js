@@ -22,18 +22,22 @@ passport.use(
       passwordField: 'password',
     },
     (email, password, next) => {
-      User.findOne({ email, active: true })
+      User.findOne({ email })
         .then((user) => {
           if (!user) {
-            next(null, null, { email: 'Invalid email or password' });
+            next({ email: 'Invalid email or password' }, null, null);
           } else {
-            return user.checkPassword(password).then((match) => {
-              if (match) {
-                next(null, user);
-              } else {
-                next(null, null, { email: 'Invalid email or password or validation' });
-              }
-            });
+            if (!user.active) {
+              next(null, null, { email: 'Comprueba tu email para activar tu cuenta' });
+            } else {
+              return user.checkPassword(password).then((match) => {
+                if (match) {
+                  next(null, user);
+                } else {
+                  next(null, null, { email: 'Invalid email or password' });
+                }
+              });
+            }
           }
         })
         .catch(next);

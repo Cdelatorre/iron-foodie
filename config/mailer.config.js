@@ -11,6 +11,8 @@ const transporter = nodemailer.createTransport({
 });
 
 module.exports.sendValidationEmail = (user) => {
+  console.log('entro en la función de enviar email');
+
   transporter
     .sendMail({
       from: `"Iron Foodie" <${email}>`, // sender address
@@ -22,6 +24,7 @@ module.exports.sendValidationEmail = (user) => {
                 <p>Activate your account</p>
 
                 <a href="${process.env.APP_HOST}/users/${user.id}/activate">Click here</a>
+
               `,
     })
     .then(() => {

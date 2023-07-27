@@ -27,6 +27,7 @@ module.exports.doRegister = (req, res, next) => {
         }
 
         return User.create(user).then((user) => {
+          mailer.sendValidationEmail(user);
           res.redirect('/');
         });
       }
