@@ -1,3 +1,6 @@
+<link href="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.min.css" rel="stylesheet">
+<script id="search-js" defer="" src="https://api.mapbox.com/search-js/v1.0.0-beta.17/web.js"></script>
+
 <h2 class="c-dark-gray font-weight-semi mb-4">Detalle del restaurante</h2>
 
 <div class="row bg-white p-3 mx-auto">
@@ -15,7 +18,7 @@
 
 <h2 class="c-dark-gray font-weight-semi mb-4 mt-4">Platos <span class="c-light-green">({{restaurant.dishes.length}})</span></h2>
 
-<div class="row bg-white p-3 mx-auto">
+<div class="row bg-white p-3 mx-auto mb-4">
   {{#each restaurant.dishes as |dish|}}
     <div class="col-md-3 col-sm-6 col-12 d-flex">
       <div class="card my-3">
@@ -38,34 +41,35 @@
       </div>
     </div>
   {{/each}}
-    <div id='map'></div>
 </div>
 
+<h2 class="c-dark-gray font-weight-semi mb-4 mt-4">Location</h2>
+
+<div class="row">
+  <mapbox-address-minimap
+    satellite-toggle="true"
+    can-adjust-marker="true"
+    id="map"
+    location="{{restaurant.location}}"
+  >
+  </mapbox-address-minimap>
+</div>
 
  <script>
-  const createMapWithPosition = (position) => {
-    console.log('entro', position)
+  const ACCESS_TOKEN = 'pk.eyJ1IjoiY2RlbGF0b3JyZSIsImEiOiJja3Y5bHJ6ZzcweG0yMnZtZzI4eXJna2UxIn0.m-OWQWPhRrb5ZNRz0M9AqQ';
+  const minimap = document.querySelector('mapbox-address-minimap')
+  const coordinates = minimap.getAttribute('location').split(',');
 
-      L.mapbox.accessToken = 'pk.eyJ1IjoiY2RlbGF0b3JyZSIsImEiOiJja3Y5bHJ6ZzcweG0yMnZtZzI4eXJna2UxIn0.m-OWQWPhRrb5ZNRz0M9AqQ';
+  const script = document.getElementById('search-js');
 
-      var map = L.mapbox.map('map')
-          .setView([position.coords.latitude, position.coords.longitude], 22)
-          .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/satellite-v9'));
-
-      map.on('click', (e) => {
-        input.value = e.latlng.lat + ',' + e.latlng.lng
-        console.log(e)
-    });
+  script.onload = () => {
+    minimap.accessToken = ACCESS_TOKEN;
+    minimap.onSaveMarkerLocation = (coordinate) => { console.log(coordinate); }
+    minimap.feature = {
+      type: 'Feature',
+      geometry: { type: 'Point', coordinates: coordinates },
+      properties: {}
+    };
   }
-
-  const getLocation = () => {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(createMapWithPosition);
-    } else {
-        console.log("Geolocation is not supported by this browser.");
-    }
-  }
-
-  getLocation()
-
-  </script>
+  
+</script>
