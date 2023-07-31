@@ -12,6 +12,10 @@ const schema = new Schema(
       type: String,
       required: true,
     },
+    location: {
+      type: [Number, Number],
+      required: true,
+    },
     image: {
       type: String,
       default: 'https://media-cdn.tripadvisor.com/media/photo-s/17/75/3f/d1/restaurant-in-valkenswaard.jpg',
@@ -22,10 +26,12 @@ const schema = new Schema(
       minlength: 10,
     },
     categories: {
-      type: [{
-        type: String,
-        enum: Object.keys(categories)
-      }],
+      type: [
+        {
+          type: String,
+          enum: Object.keys(categories),
+        },
+      ],
       default: [],
     },
     capacity: {

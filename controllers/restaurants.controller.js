@@ -32,15 +32,16 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.doCreate = (req, res, next) => {
-  
   let restaurantCategories = req.body.categories;
+
   if (restaurantCategories && !Array.isArray(restaurantCategories)) {
-    restaurantCategories = [restaurantCategories]
+    restaurantCategories = [restaurantCategories];
   }
 
   const restaurant = new Restaurant({
     name: req.body.name,
     address: req.body.address,
+    location: JSON.parse(req.body.location),
     image: req.body.image,
     description: req.body.description,
     categories: restaurantCategories,
@@ -54,6 +55,7 @@ module.exports.doCreate = (req, res, next) => {
     .then(() => res.redirect('/restaurants'))
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
+        console.log(error);
         res.status(400).render('restaurants/new', {
           errors: error.errors,
           restaurant,
@@ -66,9 +68,9 @@ module.exports.doCreate = (req, res, next) => {
 };
 
 module.exports.edit = (req, res, next) => {
-  res.render('./restaurants/edit', { 
+  res.render('./restaurants/edit', {
     restaurant: req.restaurant,
-    categories: categories 
+    categories: categories,
   });
 };
 
@@ -95,5 +97,5 @@ module.exports.doEdit = (req, res, next) => {
 module.exports.delete = (req, res, next) => {
   Restaurant.findByIdAndDelete(req.params.id)
     .then(() => res.redirect('/restaurants'))
-    .catch(error => next(error));
+    .catch((error) => next(error));
 };
